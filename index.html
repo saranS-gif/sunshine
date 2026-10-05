@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#020617">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <!-- SEO & Social Meta -->
+  <title>Midnight Bloom — Happy Birthday Sathiya Priya.K ❤️</title>
+  <meta name="description" content="A magical, cinematic interactive love story and birthday surprise for Sathiya Priya.K under the midnight stars.">
+  <meta property="og:title" content="Midnight Bloom — Happy Birthday Sathiya Priya.K">
+  <meta property="og:description" content="A magical interactive birthday love story under the midnight sky for Sathiya Priya.K.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Playfair Display + Inter + Great Vibes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Background Canvas Systems -->
+  <canvas id="canvas-stars" aria-hidden="true"></canvas>
+  <canvas id="canvas-particles" aria-hidden="true"></canvas>
+
+  <!-- Ambient Nebula Lighting -->
+  <div class="nebula-glow" aria-hidden="true"></div>
+
+  <!-- Subtle Desktop Cursor Glow -->
+  <div class="custom-cursor-glow" aria-hidden="true"></div>
+
+  <!-- Soft Flash Transition Overlay -->
+  <div class="flash-overlay" aria-hidden="true"></div>
+
+  <!-- Top Floating Controls -->
+  <header class="top-controls">
+    <div class="brand-badge">
+      <span class="dot"></span>
+      <span>Midnight Bloom</span>
+    </div>
+
+    <!-- Music Control (Supports MP3 + Procedural Starry Night Synthesizer) -->
+    <button class="music-btn" id="music-toggle-btn" aria-label="Toggle celestial background music">
+      <div class="music-waves" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <span>♪ Music</span>
+    </button>
+  </header>
+
+  <!-- Background Audio (usuraiya_tholaichena.mp3 automatically plays on open) -->
+  <audio id="bg-music-player" src="assets/audio/usuraiya_tholaichena.mp3" loop preload="auto">
+    <source src="assets/audio/usuraiya_tholaichena.mp3" type="audio/mpeg">
+    <source src="usuraiya_tholaichena.mp3" type="audio/mpeg">
+    <source src="assets/audio/background-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Master Interactive Application Container -->
+  <main class="app-container">
+
+    <!-- ====================================================================
+         SCREEN 1: CINEMATIC INTRO
+         ==================================================================== -->
+    <section id="screen-intro" class="story-screen active" aria-label="Introduction Screen">
+      <div class="intro-content">
+        <h1 class="intro-line">Something special is waiting for you…</h1>
+        <p class="intro-subline">But first…</p>
+        <button class="begin-prompt-btn" id="btn-start-journey">
+          Step into the future ✦
+        </button>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 2: SECRET PASSWORD
+         ==================================================================== -->
+    <section id="screen-password" class="story-screen" aria-label="Password Unlock Screen">
+      <div class="card-glass">
+        <h2 class="password-title">A Little Secret</h2>
+        <p class="password-subtitle">Only one person can unlock this — You ✦</p>
+
+        <!-- 4-Digit Display Indicator -->
+        <div class="pin-display" aria-label="PIN digits entered">
+          <div class="pin-dot" data-index="0"></div>
+          <div class="pin-dot" data-index="1"></div>
+          <div class="pin-dot" data-index="2"></div>
+          <div class="pin-dot" data-index="3"></div>
+        </div>
+
+        <!-- Hidden Native Input for physical/mobile keyboard -->
+        <input 
+          type="password" 
+          inputmode="numeric" 
+          pattern="[0-9]*" 
+          maxlength="4" 
+          class="hidden-password-input" 
+          id="secret-password-input"
+          autocomplete="off"
+          aria-label="Secret Passcode"
+        >
+
+        <!-- Mobile Touch Glowing Keypad -->
+        <div class="keypad-grid" aria-label="Passcode keypad">
+          <button type="button" class="key-btn" data-key="1">1</button>
+          <button type="button" class="key-btn" data-key="2">2</button>
+          <button type="button" class="key-btn" data-key="3">3</button>
+          <button type="button" class="key-btn" data-key="4">4</button>
+          <button type="button" class="key-btn" data-key="5">5</button>
+          <button type="button" class="key-btn" data-key="6">6</button>
+          <button type="button" class="key-btn" data-key="7">7</button>
+          <button type="button" class="key-btn" data-key="8">8</button>
+          <button type="button" class="key-btn" data-key="9">9</button>
+          <button type="button" class="key-btn action-key" data-key="clear">Clear</button>
+          <button type="button" class="key-btn" data-key="0">0</button>
+          <button type="button" class="key-btn action-key" data-key="backspace">⌫</button>
+        </div>
+
+        <!-- Glowing Unlock Action Button -->
+        <button type="button" class="btn-unlock" id="btn-unlock-journey">
+          UNLOCK ✦
+        </button>
+
+        <!-- Feedback Message Area -->
+        <div class="password-feedback" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 3: THE FLOWER (Main Visual Metaphor)
+         ==================================================================== -->
+    <section id="screen-flower" class="story-screen" aria-label="The Blooming Midnight Flower">
+      <div class="flower-stage-container">
+        
+        <div class="flower-canvas-wrapper">
+          <div class="flower-radiance" aria-hidden="true"></div>
+          <canvas id="canvas-flower"></canvas>
+        </div>
+
+        <div class="flower-story-text">
+          <h2 class="flower-caption-1">This flower is for you🌸</h2>
+          <p class="flower-caption-2">Because some people make the world feel a little more beautiful.</p>
+        </div>
+
+        <button type="button" class="btn-unlock flower-continue-btn" id="btn-to-birthday">
+          And now ✦
+        </button>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 4: BIRTHDAY REVEAL & PERSONAL MESSAGE
+         ==================================================================== -->
+    <section id="screen-birthday" class="story-screen" aria-label="Birthday Wishes & Message">
+      <div class="birthday-container">
+
+        <div class="birthday-header-group">
+          <span class="pre-reveal-text">Today is your day…</span>
+          <h2 class="main-birthday-title">HAPPY BIRTHDAY <span class="birthday-heart">❤️</span><br><span class="birthday-name-glow">Sathiya Priya.K</span></h2>
+          <div class="typewriter-subtitle" aria-live="polite"></div>
+        </div>
+
+        <!-- Personal Romantic Birthday Letter -->
+        <article class="birthday-message-card">
+          <p class="message-line">
+            Dearest Sathiya Priya,
+          </p>
+          <p class="message-line">
+            Today is more than just your birthday.
+          </p>
+          <p class="message-line">
+            It is the day someone incredibly special came into this world.
+          </p>
+          <p class="message-line">
+            And I am endlessly grateful that our paths crossed.
+          </p>
+          <p class="message-line">
+            You bring a gentle, radiant light to my quietest days and make every ordinary moment feel like magic.
+          </p>
+          <p class="message-line">
+            May this year bring you all the warmth, joy, peace, and dreams your beautiful heart holds so dearly.
+          </p>
+          <div class="message-sign">
+            Forever with you, with all my love.
+          </div>
+        </article>
+
+        <!-- Optional Memory Gallery (Floating Glassmorphism Cards) -->
+        <div class="memories-section">
+          <h3 class="memories-title">Our Starlit Memories</h3>
+          
+          <div class="memories-deck">
+            <!-- Memory 1 -->
+            <div class="memory-polaroid" tabindex="0" role="button" aria-label="View photo 1">
+              <div class="memory-photo-frame">
+                <img src="assets/images/memories/memory-1.svg" alt="Memory 1" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'300\' viewBox=\'0 0 300 300\'><rect width=\'300\' height=\'300\' fill=\'%230b1329\'/><circle cx=\'150\' cy=\'150\' r=\'40\' fill=\'%2338bdf8\' opacity=\'0.3\'/><text x=\'150\' y=\'156\' fill=\'%237dd3fc\' font-family=\'sans-serif\' font-size=\'14\' text-anchor=\'middle\'>A Quiet Starlit Evening</text></svg>'">
+              </div>
+              <p class="memory-caption">The first time our eyes met ❤️</p>
+            </div>
+
+            <!-- Memory 2 -->
+            <div class="memory-polaroid" tabindex="0" role="button" aria-label="View photo 2">
+              <div class="memory-photo-frame">
+                <img src="assets/images/memories/memory-2.svg" alt="Memory 2" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'300\' viewBox=\'0 0 300 300\'><rect width=\'300\' height=\'300\' fill=\'%230b1329\'/><circle cx=\'150\' cy=\'150\' r=\'40\' fill=\'%232563eb\' opacity=\'0.3\'/><text x=\'150\' y=\'156\' fill=\'%237dd3fc\' font-family=\'sans-serif\' font-size=\'14\' text-anchor=\'middle\'>Endless Conversations</text></svg>'">
+              </div>
+              <p class="memory-caption">Talking until midnight 🌙</p>
+            </div>
+
+            <!-- Memory 3 -->
+            <div class="memory-polaroid" tabindex="0" role="button" aria-label="View photo 3">
+              <div class="memory-photo-frame">
+                <img src="assets/images/memories/memory-3.svg" alt="Memory 3" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'300\' viewBox=\'0 0 300 300\'><rect width=\'300\' height=\'300\' fill=\'%230b1329\'/><circle cx=\'150\' cy=\'150\' r=\'40\' fill=\'%2338bdf8\' opacity=\'0.3\'/><text x=\'150\' y=\'156\' fill=\'%237dd3fc\' font-family=\'sans-serif\' font-size=\'14\' text-anchor=\'middle\'>Laughter & Joy</text></svg>'">
+              </div>
+              <p class="memory-caption">Your sweetest smile ✨</p>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-unlock birthday-continue-btn" id="btn-to-video">
+          One more surprise ✦
+        </button>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 5: SURPRISE VIDEO REVEAL
+         ==================================================================== -->
+    <section id="screen-video" class="story-screen" aria-label="Surprise Video Reveal">
+      <div class="video-section-container">
+        
+        <div class="video-intro-texts">
+          <p class="video-hook-1">I made something for you…</p>
+          <p class="video-hook-2">Words aren't enough.</p>
+          <h2 class="video-hook-3">“Just for your eyes.”</h2>
+        </div>
+
+        <!-- Glowing Watch Button -->
+        <button type="button" class="btn-watch-video" id="btn-play-video">
+          <span>▶</span>
+          <span>WATCH YOUR SURPRISE</span>
+        </button>
+
+        <!-- Video Player Wrapper -->
+        <div class="video-player-wrapper">
+          <div class="video-element-container">
+            <video id="birthday-video-player" playsinline controls preload="metadata">
+              <source src="assets/video/WhatsApp%20Video%202026-10-05%20at%207.16.52%20PM.mp4" type="video/mp4">
+              <source src="assets/video/WhatsApp Video 2026-10-05 at 7.16.52 PM.mp4" type="video/mp4">
+              <source src="assets/video/birthday-video.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+
+            <!-- Graceful Fallback if video file is not yet added -->
+            <div class="video-fallback-banner" style="display: none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+              </svg>
+              <h4>Your Birthday Video</h4>
+              <p>Place your video file in <code>assets/video/birthday-video.mp4</code> to watch your custom message here.</p>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-unlock video-continue-btn" id="btn-to-final">
+          And finally… ✦
+        </button>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SCREEN 6 & 7: FINAL EMOTIONAL MESSAGE & MIDNIGHT BLOOM ENDING
+         ==================================================================== -->
+    <section id="screen-final" class="story-screen" aria-label="Final Emotional Message">
+      <div class="final-content-wrapper">
+        <p class="final-line-1">And finally…</p>
+        <p class="final-line-2">“I don't know what the future has planned…”</p>
+        <p class="final-line-3">“But I'm really happy that you are a part of my present.”</p>
+        
+        <h2 class="final-grand-love">❤️ Happy Birthday, Sathiya Priya.K</h2>
+
+        <!-- Final glowing flower icon -->
+        <div class="final-flower-container">
+          <svg class="final-flower-svg" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="12" fill="#ffffff" filter="drop-shadow(0 0 8px #7dd3fc)"/>
+            <path d="M50 20 C42 32, 58 32, 50 20 Z" fill="#38bdf8"/>
+            <path d="M50 80 C42 68, 58 68, 50 80 Z" fill="#38bdf8"/>
+            <path d="M20 50 C32 42, 32 58, 20 50 Z" fill="#38bdf8"/>
+            <path d="M80 50 C68 42, 68 58, 80 50 Z" fill="#38bdf8"/>
+            <path d="M29 29 C40 37, 37 40, 29 29 Z" fill="#2563eb"/>
+            <path d="M71 29 C60 37, 63 40, 71 29 Z" fill="#2563eb"/>
+            <path d="M29 71 C40 63, 37 60, 29 71 Z" fill="#2563eb"/>
+            <path d="M71 71 C60 63, 63 60, 71 71 Z" fill="#2563eb"/>
+          </svg>
+        </div>
+
+        <div class="final-credits">
+          <p class="credit-heart">Made with love, just for you.</p>
+          <p class="credit-author">— Saran ❤️</p>
+        </div>
+
+        <!-- Ending Badge: Celestial Star + Forever Loading -->
+        <div class="ending-star-box">
+          <div class="celestial-star"></div>
+          <div class="forever-loading">
+            <span class="forever-spinner"></span>
+            <span>Forever loading… ❤️</span>
+          </div>
+        </div>
+
+        <button type="button" class="replay-btn" id="btn-replay">
+          ↻ Replay the Journey
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox Modal for Photo Inspection -->
+  <div class="memory-lightbox" role="dialog" aria-hidden="true" aria-modal="true">
+    <div class="lightbox-content">
+      <button class="lightbox-close" aria-label="Close modal">&times;</button>
+      <div class="lightbox-img-wrapper">
+        <img id="lightbox-image" src="" alt="Enlarged Memory">
+      </div>
+      <p class="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <!-- Scripts in dependency order -->
+  <script src="js/particles.js"></script>
+  <script src="js/flower.js"></script>
+  <script src="js/password.js"></script>
+  <script src="js/birthday.js"></script>
+  <script src="js/video.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

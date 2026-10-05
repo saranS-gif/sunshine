@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+
+# Personal media & large video files (>100MB exceeds GitHub limit)
+assets/video/*.mp4
+# assets/audio/background-music.mp3
