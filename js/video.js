@@ -87,6 +87,15 @@ class VideoRevealManager {
     // Darken screen for video presentation
     document.body.classList.add('video-scene-active');
 
+    // Pre-buffer video during textual buildup for instant smooth playback
+    if (this.videoElement) {
+      if (!this.videoElement.src || this.videoElement.src === window.location.href) {
+        this.videoElement.src = this.videoSources[0];
+      }
+      this.videoElement.preload = 'auto';
+      this.videoElement.load();
+    }
+
     // 1. "I made something for you…"
     setTimeout(() => {
       if (this.hook1) this.hook1.classList.add('visible');
@@ -139,8 +148,8 @@ class VideoRevealManager {
     if (this.videoElement) {
       if (!this.videoElement.src || this.videoElement.src === window.location.href) {
         this.videoElement.src = this.videoSources[0];
+        this.videoElement.load();
       }
-      this.videoElement.load();
 
       const playPromise = this.videoElement.play();
       if (playPromise !== undefined) {

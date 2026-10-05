@@ -49,7 +49,8 @@ sunshine/
 │   │   ├── memories/           # Photo cards (memory-1.svg, etc.)
 │   │   └── background/         # Optional background textures
 │   ├── video/
-│   │   └── birthday-video.mp4  # Your surprise video (optional)
+│   │   ├── WhatsApp Video 2026-10-05 at 7.16.52 PM.mp4 # Active surprise video
+│   │   └── birthday-video.mp4  # Supported fallback
 │   └── audio/
 │       └── background-music.mp3# Your background music (optional)
 │
