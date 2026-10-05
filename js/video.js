@@ -15,6 +15,13 @@ class VideoRevealManager {
     this.fallbackBanner = document.querySelector('.video-fallback-banner');
     this.continueBtn = document.querySelector('.video-continue-btn');
 
+    this.videoSources = [
+      'assets/video/WhatsApp%20Video%202026-10-05%20at%207.16.52%20PM.mp4',
+      'assets/video/WhatsApp Video 2026-10-05 at 7.16.52 PM.mp4',
+      'assets/video/birthday-video.mp4'
+    ];
+    this.currentSourceIdx = 0;
+
     this.initialized = false;
     this.wasMusicPlaying = false;
     this.bindEvents();
@@ -38,19 +45,35 @@ class VideoRevealManager {
         if (this.continueBtn) this.continueBtn.classList.add('visible');
       });
 
-      // Video finishes: brief pause -> reveal final button
+      // Video finishes: brief pause -> reveal final button & resume melody
       this.videoElement.addEventListener('ended', () => {
         setTimeout(() => {
           if (this.continueBtn) this.continueBtn.classList.add('visible');
           if (this.wasMusicPlaying && window.birthdayManager) {
             window.birthdayManager.playMusic();
           }
-        }, 1200);
+        }, 1000);
       });
 
-      // If video file is missing or errors
-      this.videoElement.addEventListener('error', () => {
-        if (this.fallbackBanner) this.fallbackBanner.style.display = 'flex';
+      // If video file has load error (e.g. 404 or un-uploaded large file)
+      this.videoElement.addEventListener('error', (e) => {
+        console.warn("Video playback error details:", this.videoElement.error, e);
+        
+        // Try fallback source if available
+        if (this.currentSourceIdx < this.videoSources.length - 1) {
+          this.currentSourceIdx++;
+          this.videoElement.src = this.videoSources[this.currentSourceIdx];
+          this.videoElement.load();
+          return;
+        }
+
+        if (this.fallbackBanner) {
+          this.fallbackBanner.style.display = 'flex';
+          const msg = this.fallbackBanner.querySelector('p');
+          if (msg) {
+            msg.innerHTML = "<b>Video not found on server.</b><br>If viewing on <b>GitHub Pages</b>, files over 100MB cannot be pushed to GitHub, so the video was not uploaded.<br><br>Test locally on your computer, or compress the video below 100MB to host it.";
+          }
+        }
         if (this.continueBtn) this.continueBtn.classList.add('visible');
       });
     }
@@ -105,23 +128,31 @@ class VideoRevealManager {
       this.wasMusicPlaying = true;
     }
 
+    // Ensure continue button is revealed so user can always progress
+    if (this.continueBtn) {
+      setTimeout(() => {
+        this.continueBtn.classList.add('visible');
+      }, 1500);
+    }
+
     // Attempt video playback
     if (this.videoElement) {
+      if (!this.videoElement.src || this.videoElement.src === window.location.href) {
+        this.videoElement.src = this.videoSources[0];
+      }
+      this.videoElement.load();
+
       const playPromise = this.videoElement.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
           if (this.fallbackBanner) this.fallbackBanner.style.display = 'none';
-          if (this.continueBtn) this.continueBtn.classList.add('visible');
         }).catch((err) => {
-          // If browser policy prevents unmuted autoplay, show native player ready to tap
-          console.log("Video ready for tap-to-play:", err);
+          console.log("Video autoplay blocked by browser policy (user can tap native controls):", err);
           if (this.fallbackBanner) this.fallbackBanner.style.display = 'none';
-          if (this.continueBtn) this.continueBtn.classList.add('visible');
         });
       }
     } else {
       if (this.fallbackBanner) this.fallbackBanner.style.display = 'flex';
-      if (this.continueBtn) this.continueBtn.classList.add('visible');
     }
   }
 }
