@@ -11,14 +11,15 @@ class VideoRevealManager {
     this.hook3 = document.querySelector('.video-hook-3');
     this.watchBtn = document.querySelector('.btn-watch-video');
     this.videoWrapper = document.querySelector('.video-player-wrapper');
-    this.videoElement = document.getElementById('birthday-video-player');
+    this.videoElement = document.getElementById('birthdayVideo') || document.getElementById('birthday-video-player');
     this.fallbackBanner = document.querySelector('.video-fallback-banner');
     this.continueBtn = document.querySelector('.video-continue-btn');
 
     this.videoSources = [
+      'assets/video/birthday-video.mp4',
+      './assets/video/birthday-video.mp4',
       'assets/video/WhatsApp%20Video%202026-10-05%20at%207.16.52%20PM.mp4',
-      'assets/video/WhatsApp Video 2026-10-05 at 7.16.52 PM.mp4',
-      'assets/video/birthday-video.mp4'
+      'assets/video/WhatsApp Video 2026-10-05 at 7.16.52 PM.mp4'
     ];
     this.currentSourceIdx = 0;
 

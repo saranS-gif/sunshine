@@ -72,7 +72,7 @@ class StoryOrchestrator {
     if (videoContinue) {
       videoContinue.addEventListener('click', () => {
         // Pause video if playing
-        const vid = document.getElementById('birthday-video-player');
+        const vid = document.getElementById('birthdayVideo') || document.getElementById('birthday-video-player');
         if (vid && !vid.paused) {
           vid.pause();
         }

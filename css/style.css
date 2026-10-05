@@ -1083,7 +1083,9 @@ body.video-scene-active {
   justify-content: center;
 }
 
-#birthday-video-player {
+#birthdayVideo,
+#birthday-video-player,
+.birthday-video {
   width: 100%;
   max-height: 75vh;
   object-fit: contain;
