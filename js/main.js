@@ -71,10 +71,17 @@ class StoryOrchestrator {
     const videoContinue = document.querySelector('.video-continue-btn');
     if (videoContinue) {
       videoContinue.addEventListener('click', () => {
-        // Pause video if playing
+        // Pause local video if playing
         const vid = document.getElementById('birthdayVideo') || document.getElementById('birthday-video-player');
         if (vid && !vid.paused) {
           vid.pause();
+        }
+        // Stop Google Drive iframe video playback
+        const driveIframe = document.getElementById('birthdayDriveVideo');
+        if (driveIframe) {
+          const currentSrc = driveIframe.src;
+          driveIframe.src = '';
+          driveIframe.src = currentSrc;
         }
         // Resume background song for the emotional ending
         if (window.birthdayManager && !window.birthdayManager.isMusicPlaying) {

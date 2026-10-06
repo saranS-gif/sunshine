@@ -252,38 +252,24 @@
         <!-- Video Player Wrapper -->
         <div class="video-player-wrapper">
           <div class="video-element-container">
-            <video
-              id="birthdayVideo"
-              class="birthday-video"
-              controls
-              playsinline
-              webkit-playsinline
-              preload="metadata"
+            <iframe
+              id="birthdayDriveVideo"
+              class="birthday-drive-iframe"
+              src="https://drive.google.com/file/d/150kaYRW_Etf2fHZdvB5YQAlXGsJ-nmv_/preview"
+              title="Birthday Surprise Video"
+              allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="video-alt-link-row">
+            <a
+              href="https://drive.google.com/file/d/150kaYRW_Etf2fHZdvB5YQAlXGsJ-nmv_/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="drive-open-link"
             >
-              <source
-                src="./assets/video/birthday-video.mp4"
-                type="video/mp4"
-              />
-              <source
-                src="assets/video/birthday-video.mp4"
-                type="video/mp4"
-              />
-              <source
-                src="assets/video/WhatsApp%20Video%202026-10-05%20at%207.16.52%20PM.mp4"
-                type="video/mp4"
-              />
-              Your browser does not support HTML5 video.
-            </video>
-
-            <!-- Graceful Fallback if video file is not yet added -->
-            <div class="video-fallback-banner" style="display: none;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polygon points="10 8 16 12 10 16 10 8"></polygon>
-              </svg>
-              <h4>Your Birthday Video</h4>
-              <p>Place your video file in <code>assets/video/birthday-video.mp4</code> to watch your custom message here.</p>
-            </div>
+              <span>↗ Open full video in Google Drive</span>
+            </a>
           </div>
         </div>
 

@@ -145,7 +145,7 @@ class VideoRevealManager {
       }, 1500);
     }
 
-    // Attempt video playback
+    // Attempt video playback if local video tag is present
     if (this.videoElement) {
       if (!this.videoElement.src || this.videoElement.src === window.location.href) {
         this.videoElement.src = this.videoSources[0];
@@ -161,8 +161,6 @@ class VideoRevealManager {
           if (this.fallbackBanner) this.fallbackBanner.style.display = 'none';
         });
       }
-    } else {
-      if (this.fallbackBanner) this.fallbackBanner.style.display = 'flex';
     }
   }
 }
